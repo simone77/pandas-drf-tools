@@ -3,8 +3,6 @@ from __future__ import unicode_literals
 from collections import OrderedDict
 
 from django.template import loader
-
-from rest_framework.compat import template_render
 from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from rest_framework.settings import api_settings
@@ -155,7 +153,7 @@ class LimitOffsetPagination(BaseDataFramePagination):
     def to_html(self):
         template = loader.get_template(self.template)
         context = self.get_html_context()
-        return template_render(template, context)
+        return template.render(context)
 
     def get_fields(self, view):
         return [self.limit_query_param, self.offset_query_param]
